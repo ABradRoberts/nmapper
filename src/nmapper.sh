@@ -29,6 +29,6 @@ nmap -Pn -p- --max-retries 1 $TARGET -o $OUTFILE.all
 echo "#######################"
 echo "# ----- ALL sVsC -----#"
 echo "#######################"
-nmap -Pn -sV -sC -p $(get_ports $OUTFILE.all) $TARGET -oA $OUTFILE.sVsC.allports
+nmap -Pn -sV -sC -p $(get_ports $OUTFILE.all) $TARGET -oA $OUTFILE.all.sVsC
 
 echo "Done."
