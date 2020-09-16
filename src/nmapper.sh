@@ -15,20 +15,25 @@ echo "####################"
 echo "# ----- FAST ----- #"
 echo "####################"
 nmap -Pn -F $TARGET -o $OUTFILE.fast
-
+echo ""
 echo "#####################"
 echo "# ----- NORMAL -----#"
 echo "#####################"
 nmap -Pn $TARGET -o $OUTFILE.normal
-
+echo ""
 echo "###################"
 echo "# ----- ALL ----- #"
 echo "###################"
 nmap -Pn -p- --max-retries 1 $TARGET -o $OUTFILE.all
-
+echo ""
 echo "#######################"
 echo "# ----- ALL sVsC -----#"
 echo "#######################"
 nmap -Pn -sV -sC -p $(get_ports $OUTFILE.all) $TARGET -oA $OUTFILE.all.sVsC
+echo ""
+echo "###################"
+echo "# ----- UDP ----- #"
+echo "###################"
+sudo nmap -sUV -F $TARGET -oA $OUTFILE.udp
 
 echo "Done."
