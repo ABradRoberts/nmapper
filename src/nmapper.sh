@@ -16,24 +16,31 @@ echo "# ----- FAST ----- #"
 echo "####################"
 nmap -Pn -F $TARGET -o $OUTFILE.fast
 echo ""
+
 echo "#####################"
 echo "# ----- NORMAL -----#"
 echo "#####################"
 nmap -Pn $TARGET -o $OUTFILE.normal
 echo ""
+
 echo "###################"
 echo "# ----- ALL ----- #"
 echo "###################"
-nmap -Pn -p- --max-retries 1 $TARGET -o $OUTFILE.all
+nmap -Pn -p- --max-retries 1 $TARGET -o $OUTFILE.all -v
 echo ""
+
+PORTS=$(get_ports $OUTFILE.all)
+
 echo "#######################"
 echo "# ----- ALL sVsC -----#"
 echo "#######################"
-nmap -Pn -sV -sC -p $(get_ports $OUTFILE.all) $TARGET -oA $OUTFILE.all.sVsC
+nmap -Pn -sV -sC -p $PORTS $TARGET -oA $OUTFILE.all.sVsC
 echo ""
-echo "###################"
-echo "# ----- UDP ----- #"
-echo "###################"
-sudo nmap -sUV -F $TARGET -oA $OUTFILE.udp
+
+echo "########################"
+echo "# ----- ALL SAFE ----- #"
+echo "########################"
+nmap -Pn --script safe $PORTS $TARGET -oA $OUTFILE.all.safe
+echo ""
 
 echo "Done."
